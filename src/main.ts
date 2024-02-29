@@ -10,6 +10,7 @@ async function bootstrap() {
     .setDescription('The voucher pool endpoints specification.')
     .setVersion('1.0')
     .addTag('Customer', 'Customer CRUD endpoints')
+    .addTag('Special Offer', 'Special Offer CRUD endpoints')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('', app, document);
