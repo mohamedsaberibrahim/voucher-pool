@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { CustomerModule } from './customer/customer.module';
 
 @Module({
   imports: [
@@ -12,9 +13,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: 'rails_user',
       password: 'secretpass',
       database: 'simple_cms_development',
-      entities: ['src/**/**.entity{.ts,.js}'],
+      entities: ["dist/**/*.entity{.ts,.js}"],
       synchronize: true,
     }),
+    CustomerModule,
   ],
   controllers: [AppController],
   providers: [AppService],
