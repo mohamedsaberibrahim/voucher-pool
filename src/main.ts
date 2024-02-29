@@ -11,6 +11,7 @@ async function bootstrap() {
     .setVersion('1.0')
     .addTag('Customer', 'Customer CRUD endpoints')
     .addTag('Special Offer', 'Special Offer CRUD endpoints')
+    .addTag('Voucher', 'Voucher CRUD endpoints')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('', app, document);
