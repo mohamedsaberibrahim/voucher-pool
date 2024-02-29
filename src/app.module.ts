@@ -5,9 +5,16 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { CustomerModule } from './customer/customer.module';
 import { SpecialOfferModule } from './special-offer/special-offer.module';
 import { VoucherModule } from './voucher/voucher.module';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
+    ThrottlerModule.forRoot([
+      {
+        ttl: 60000,
+        limit: 3,
+      },
+    ]),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
