@@ -13,7 +13,7 @@ import { CustomerModule } from './customer/customer.module';
       username: 'rails_user',
       password: 'secretpass',
       database: 'simple_cms_development',
-      entities: ["dist/**/*.entity{.ts,.js}"],
+      entities: ['dist/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
     CustomerModule,
