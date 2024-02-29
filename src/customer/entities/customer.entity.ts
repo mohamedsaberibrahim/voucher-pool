@@ -2,18 +2,18 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'customers' })
 export class CustomerEntity {
-    @PrimaryGeneratedColumn({ type: 'bigint' })
-    id: number;
+  @PrimaryGeneratedColumn({ type: 'bigint' })
+  id: number;
 
-    @Column({ nullable: true })
-    name: string;
+  @Column({ nullable: true })
+  name: string;
 
-    @Column({ unique: true })
-    email: string;
+  @Column({ unique: true })
+  email: string;
 
-    @Column()
-    createdAt: Date;
+  @Column()
+  createdAt: Date;
 
-    @Column()
-    updatedAt: Date;
+  @Column({ nullable: true })
+  updatedAt: Date;
 }
