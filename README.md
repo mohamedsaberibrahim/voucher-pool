@@ -25,8 +25,8 @@ $ npm run start:prod
 
 ### To-do list
 
-* [ ] Design a database schema
-* [ ] Write an application
+* [x] Design a database schema
+* [x] Write an application
 * [ ] API endpoint for verifying and redeeming vouchers
 * [ ] Implement API Rate Limiting: Protect the API from abuse by implementing rate limiting on the endpoints.
 * [ ] Use Database Transactions: Ensure data consistency by implementing use of transactions in your application.
@@ -35,3 +35,7 @@ $ npm run start:prod
 * [ ] A nice little Readme on how to run
 * [ ] Writing swagger for the API
 * [ ] Docker file to setup the whole application with all the dependencies (database, nodejs)
+
+
+## database design
+![Design](db-schema.png)
