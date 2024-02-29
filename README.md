@@ -27,7 +27,7 @@ $ npm run start:prod
 
 * [x] Design a database schema
 * [x] Write an application
-* [ ] API endpoint for verifying and redeeming vouchers
+* [x] API endpoint for verifying and redeeming vouchers
 * [ ] Implement API Rate Limiting: Protect the API from abuse by implementing rate limiting on the endpoints.
 * [ ] Use Database Transactions: Ensure data consistency by implementing use of transactions in your application.
 * [ ] Write unit tests

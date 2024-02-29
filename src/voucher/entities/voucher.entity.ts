@@ -38,4 +38,7 @@ export class VoucherEntity {
 
   @Column({ nullable: true })
   updatedAt: Date;
+
+  @Column({ nullable: true })
+  usedAt: Date;
 }

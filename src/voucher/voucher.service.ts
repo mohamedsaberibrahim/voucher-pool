@@ -16,10 +16,8 @@ export class VoucherService {
   ) {}
 
   async create(createVoucherDto: CreateVoucherDto) {
-    const customer = await this.customerService.findOne(
-      createVoucherDto.customerId,
-    );
-    if (!customer) {
+    const customers = await this.customerService.findAll();
+    if (!customers || customers.length === 0) {
       throw new Error('Customer not found');
     }
     const specialOffer = await this.specialOfferService.findOne(
@@ -28,22 +26,67 @@ export class VoucherService {
     if (!specialOffer) {
       throw new Error('Special offer not found');
     }
-    const newVoucher = this.voucherRepository.create({
-      ...createVoucherDto,
-      customer,
-      specialOffer,
-      code: this._generateCode(8),
-      createdAt: new Date(),
+    const constructedVoucherObjs = customers.map((customer) => {
+      const newVoucher = this.voucherRepository.create({
+        ...createVoucherDto,
+        customer,
+        specialOffer,
+        code: this._generateCode(8),
+        createdAt: new Date(),
+      });
+      return newVoucher;
     });
-    return this.voucherRepository.save(newVoucher);
+    return this.voucherRepository.save(constructedVoucherObjs);
   }
 
-  findAll() {
-    return this.voucherRepository.find();
+  async findAllByCustomerEmail(email: string) {
+    const customer = await this.customerService.findOneByEmail(email);
+    if (!customer) {
+      throw new Error('Customer not found');
+    }
+    return this.voucherRepository
+      .createQueryBuilder('voucher')
+      .innerJoinAndSelect(
+        'voucher.specialOffer',
+        'specialOffer',
+        'specialOffer.id = voucher.specialOfferId',
+      )
+      .where('voucher.customerId = :customerId', { customerId: customer.id })
+      .andWhere('voucher.usedAt IS NULL')
+      .getMany();
   }
 
   findOne(id: number) {
     return this.voucherRepository.findOneBy({ id });
+  }
+
+  async redeem(code: string, email: string) {
+    const voucher = await this.validate(code, email);
+    // setting the usedAt date
+    voucher.usedAt = new Date();
+    voucher.updatedAt = new Date();
+    await this.voucherRepository.save(voucher);
+    return voucher;
+  }
+
+  async validate(code: string, email: string) {
+    const customer = await this.customerService.findOneByEmail(email);
+    if (!customer) {
+      throw new Error('Customer not found');
+    }
+    const voucher = await this.voucherRepository.findOne({
+      where: { code, customerId: customer.id },
+    });
+    if (!voucher) {
+      throw new Error('Voucher not found');
+    }
+    if (voucher.usedAt) {
+      throw new Error('Voucher already used');
+    }
+    if (voucher.expiryAt < new Date()) {
+      throw new Error('Voucher expired');
+    }
+    return voucher;
   }
 
   _generateCode(length: number) {

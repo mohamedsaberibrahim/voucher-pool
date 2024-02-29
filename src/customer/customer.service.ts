@@ -23,7 +23,11 @@ export class CustomerService {
     return this.customerRepository.find();
   }
 
-  findOne(id: number) {
+  findOneById(id: number) {
     return this.customerRepository.findOneBy({ id });
+  }
+
+  findOneByEmail(email: string) {
+    return this.customerRepository.findOneBy({ email });
   }
 }
