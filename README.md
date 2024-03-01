@@ -35,7 +35,7 @@ $ npm run start:prod
 * [x] Using Typescript
 * [x] A nice little Readme on how to run
 * [x] Writing swagger for the API
-* [ ] Docker file to setup the whole application with all the dependencies (database, nodejs)
+* [x] Docker file to setup the whole application with all the dependencies (database, nodejs)
 
 
 ## Images
