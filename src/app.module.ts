@@ -6,6 +6,7 @@ import { CustomerModule } from './customer/customer.module';
 import { SpecialOfferModule } from './special-offer/special-offer.module';
 import { VoucherModule } from './voucher/voucher.module';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -15,13 +16,14 @@ import { ThrottlerModule } from '@nestjs/throttler';
         limit: 3,
       },
     ]),
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
+      host: process.env.DB_HOST || 'localhost',
       port: 3306,
-      username: 'rails_user',
-      password: 'secretpass',
-      database: 'simple_cms_development',
+      username: process.env.DB_USER || 'root',
+      password: process.env.DB_PASSWORD || 'root',
+      database: process.env.DB_NAME || 'test',
       entities: ['dist/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
