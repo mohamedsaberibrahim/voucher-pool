@@ -6,6 +6,7 @@ A voucher pool is a collection of voucher codes that can be used by customers to
 
 ## Installation
 
+Make sure to have NodeJS & MySQL installed.
 ```bash
 $ npm install
 ```
@@ -31,9 +32,9 @@ $ npm run start:prod
 * [x] Implement API Rate Limiting: Protect the API from abuse by implementing rate limiting on the endpoints.
 * [x] Use Database Transactions: Ensure data consistency by implementing use of transactions in your application.
 * [ ] Write unit tests
-* [ ] Using Typescript
-* [ ] A nice little Readme on how to run
-* [ ] Writing swagger for the API
+* [x] Using Typescript
+* [x] A nice little Readme on how to run
+* [x] Writing swagger for the API
 * [ ] Docker file to setup the whole application with all the dependencies (database, nodejs)
 
 
