@@ -29,7 +29,7 @@ $ npm run start:prod
 * [x] Write an application
 * [x] API endpoint for verifying and redeeming vouchers
 * [x] Implement API Rate Limiting: Protect the API from abuse by implementing rate limiting on the endpoints.
-* [ ] Use Database Transactions: Ensure data consistency by implementing use of transactions in your application.
+* [x] Use Database Transactions: Ensure data consistency by implementing use of transactions in your application.
 * [ ] Write unit tests
 * [ ] Using Typescript
 * [ ] A nice little Readme on how to run

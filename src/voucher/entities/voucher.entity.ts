@@ -6,9 +6,11 @@ import {
   PrimaryGeneratedColumn,
   ManyToOne,
   JoinColumn,
+  Unique,
 } from 'typeorm';
 
 @Entity({ name: 'vouchers' })
+@Unique(['specialOfferId', 'customerId']) // This will create a unique constraint on the specialOfferId and customerId columns
 export class VoucherEntity {
   @PrimaryGeneratedColumn({ type: 'bigint' })
   id: number;

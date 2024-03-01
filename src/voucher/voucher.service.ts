@@ -5,12 +5,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CustomerService } from '../customer/customer.service';
 import { SpecialOfferService } from '../special-offer/special-offer.service';
+import { DataSource } from 'typeorm';
 
 @Injectable()
 export class VoucherService {
   constructor(
     @InjectRepository(VoucherEntity)
     private voucherRepository: Repository<VoucherEntity>,
+    private dataSource: DataSource,
     private customerService: CustomerService,
     private specialOfferService: SpecialOfferService,
   ) {}
@@ -62,10 +64,23 @@ export class VoucherService {
 
   async redeem(code: string, email: string) {
     const voucher = await this.validate(code, email);
-    // setting the usedAt date
-    voucher.usedAt = new Date();
-    voucher.updatedAt = new Date();
-    await this.voucherRepository.save(voucher);
+    const queryRunner = this.dataSource.createQueryRunner();
+    try {
+      // execute some operations on this transaction:
+      // setting the usedAt date
+      voucher.usedAt = new Date();
+      voucher.updatedAt = new Date();
+      await queryRunner.manager.save(voucher);
+
+      // commit transaction now:
+      await queryRunner.commitTransaction();
+    } catch (err) {
+      // since we have errors let's rollback changes we made
+      await queryRunner.rollbackTransaction();
+    } finally {
+      // you need to release query runner which is manually created:
+      await queryRunner.release();
+    }
     return voucher;
   }
 
